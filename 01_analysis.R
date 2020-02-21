@@ -6,8 +6,8 @@ options(scipen = 999)
 
 #republicans ####
 
-rnc <- read_csv("rnc.csv")
-nrcc <- read_csv("nrcc.csv")
+rnc <- read_csv("sept2019reports/rnc.csv")
+nrcc <- read_csv("sept2019reports/nrcc.csv")
 
 gop_combined <- rbind(rnc, nrcc)
 
@@ -41,8 +41,8 @@ head(topzips_gop, 10)
 
 #democrats ####
 
-dnc <- read_csv("dnc.csv")
-dccc <- read_csv("dccc.csv")
+dnc <- read_csv("sept2019reports/dnc.csv")
+dccc <- read_csv("sept2019reports/dccc.csv")
 
 
 dnc$date <- ymd(dnc$date)
