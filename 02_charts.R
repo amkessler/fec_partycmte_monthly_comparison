@@ -17,17 +17,19 @@ dem10 <- zipcompare %>%
   arrange(desc(demtotal)) %>% 
   head(10)
 
+dem10
 
-df <- dem10
+#reorder factor to allow for descending bars
+dem10 <- dem10 %>%
+  mutate(zipname = fct_reorder(zipname, demtotal)) 
 
-df$zipname <- factor(df$zipname, levels = df$zipname)
-
-d <- ggplot(df, aes(zipname, demtotal)) + geom_col(fill = "darkblue") + coord_flip() +
+#chart it out
+d <- ggplot(dem10, aes(zipname, demtotal)) + geom_col(fill = "darkblue") + coord_flip() +
   theme_minimal()
 
 d
 
-
+#add extra elements to the chart and convert to ggplotly
 d2 <- d + labs(title="Top DNC/DCCC zip codes",
                # subtitle = "A subtitle",
                caption = "Source: FEC",
