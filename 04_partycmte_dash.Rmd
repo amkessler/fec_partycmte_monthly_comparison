@@ -36,11 +36,14 @@ zipcompare <- readRDS("zipcompare.rds")
 top10chart_dem <- readRDS("demtopzip_plt_nm.rds")
 top10chart_gop <- readRDS("goptopzip_plt_nm.rds")
 
+# load saved map object from step 03
+savedmap_zipcompare <- readRDS("savedmap_zipcompare.rds")
+
 
 ```
 
 
-Summary Charts and Table
+Table & Top 10 Charts
 ===================================== 
 Breakdown by zip code as reported in the January monthly FEC reports filed on Feb 20.  
 This dataset includes individual contributions to the **DNC/DNCC** vs. the **RNC/NRCC**.
@@ -101,11 +104,19 @@ top10chart_gop
 
 
 
-Upcoming Events Breakdown
+Comparison Map
 =====================================
+The map below shows which side (DEM or GOP) raised more money within each individual zip code.  
+The larger the circle, the greater the fundraising advantage by the winning party in that zip code.
 
-
-Row {data-height=300}
+Row {}
 -----------------------------------------------------------------------
 
 ### Next trip happening
+
+```{r}
+
+savedmap_zipcompare
+
+```
+
