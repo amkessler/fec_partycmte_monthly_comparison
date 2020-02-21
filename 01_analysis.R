@@ -87,7 +87,7 @@ write_csv(topzips_gop, "topzips_gop.csv")
 write_csv(topzips_dem, "topzips_dem.csv")
 
 
-### compare D and R in each zip
+### compare D and R in each zip ####
 
 colnames(topzips_dem) <- c("zip_code", "demtotal")
 colnames(topzips_gop) <- c("zip_code", "goptotal")
