@@ -78,21 +78,21 @@ datatable(mytable,
 Row {data-height=350}
 -----------------------------------------------------------------------
 
-### Top ten zip codes for DNC/DCCC
+### 
 
 ```{r}
 
-
+top10chart_dem
 
 
 ```
 
 
-### Top ten zip codes for RNC/NRCC
+### 
 
 ```{r}
 
-
+top10chart_gop
 
 
 ```
