@@ -5,9 +5,10 @@ options(scipen = 999)
 
 
 #republicans ####
+#point to the files from the relevant reporting period directory you're interested in
 
-rnc <- read_csv("sept2019reports/rnc.csv")
-nrcc <- read_csv("sept2019reports/nrcc.csv")
+rnc <- read_csv("feb2020reports/rnc.csv")
+nrcc <- read_csv("feb2020reports/nrcc.csv")
 
 gop_combined <- rbind(rnc, nrcc)
 
@@ -40,9 +41,10 @@ head(topzips_gop, 10)
 
 
 #democrats ####
+#point to the files from the relevant reporting period directory you're interested in
 
-dnc <- read_csv("sept2019reports/dnc.csv")
-dccc <- read_csv("sept2019reports/dccc.csv")
+dnc <- read_csv("feb2020reports/dnc.csv")
+dccc <- read_csv("feb2020reports/dccc.csv")
 
 
 dnc$date <- ymd(dnc$date)
