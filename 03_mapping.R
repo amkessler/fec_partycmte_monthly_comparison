@@ -83,11 +83,11 @@ m1 <- leaflet(zip_map) %>%
              fillColor = ~factpal(winner),
              label = lapply(labs1, HTML)
   ) %>%
-  addControl("RNC/NRCC vs. DNC/DCCC - Sept. individual contributions by zip code", position = "topright") 
+  addControl("RNC/NRCC vs. DNC/DCCC - Feb. individual contributions by zip code", position = "topright") 
 # %>% 
 #   setView(-96, 37.8, zoom=4) 
 
 m1
 
 #save to frameable file for CMS
-htmlwidgets::saveWidget(frameableWidget(m1),'sept_dvsr_byzip_points.html')
+htmlwidgets::saveWidget(frameableWidget(m1),'feb_dvsr_byzip_points.html')
