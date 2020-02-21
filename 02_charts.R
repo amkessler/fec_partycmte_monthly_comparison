@@ -6,31 +6,23 @@ library(zoo)
 library(lubridate)
 options(scipen = 999)
 
-#bring in data
-dem10 <- read_csv("top zips dems with city names.csv", 
-                                          col_types = cols(zip_code = col_character()))
-
-gop10 <- read_csv("top zips gop with city names.csv")
+#bring in saved table from step 01
+zipcompare <- readRDS("zipcompare.rds")
 
 
-dem10 <- dem10 %>% 
-  mutate(
-    zipname = paste0(zip_code, " (", name, ")")
-  )
+#first the dems ####
 
-gop10 <- gop10 %>% 
-  mutate(
-    zipname = paste0(zip_code, " (", name, ")")
-  )
+#pull out top 10 zips for the dems
+dem10 <- zipcompare %>% 
+  arrange(desc(demtotal)) %>% 
+  head(10)
 
-
-#first the dems
 
 df <- dem10
-df <- arrange(df, total)
+
 df$zipname <- factor(df$zipname, levels = df$zipname)
 
-d <- ggplot(df, aes(zipname, total)) + geom_col(fill = "darkblue") + coord_flip() +
+d <- ggplot(df, aes(zipname, demtotal)) + geom_col(fill = "darkblue") + coord_flip() +
   theme_minimal()
 
 d
