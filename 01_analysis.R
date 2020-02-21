@@ -119,7 +119,11 @@ zip_codes_lookup <- zip_codes_lookup %>%
     name = paste0(city, ", ", state),
     zipname = paste0(zip_code, " (", name, ")")
   ) %>% 
-  select(zip_code, city, state, city_alias_name, zipname)
+  select(zip_code, city, state, zipname)
+
+#remove dups
+zip_codes_lookup <- zip_codes_lookup %>% 
+  distinct(zip_code, city, state, zipname)
 
 
 #join to our table
