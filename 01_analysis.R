@@ -125,5 +125,7 @@ zip_codes_lookup <- zip_codes_lookup %>%
 #join to our table
 zipcompare <- left_join(zipcompare, zip_codes_lookup)
 
-#save table as rds
+#save table as rds for later use
 saveRDS(zipcompare, "zipcompare.rds")
+# save as excel for sharing
+writexl::write_xlsx(zipcompare, "output/zipcompare.xlsx")
