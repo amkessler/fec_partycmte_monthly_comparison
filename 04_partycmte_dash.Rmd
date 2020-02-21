@@ -1,0 +1,111 @@
+---
+title: "DEM VS. GOP PARTY COMMITTTEES"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+
+library(flexdashboard)
+library(tidyverse)
+library(lubridate)
+library(janitor)
+library(glue)
+library(plotly)
+library(DT)
+library(googlesheets)
+library(kableExtra)
+library(leaflet)
+# library(ggmap)
+library(RColorBrewer)
+library(htmlwidgets)
+library(htmltools)
+library(tigris)
+options(tigris_class = "sf")
+
+
+### DATA LOADING AND PREP
+
+#bring in saved table from step 01
+zipcompare <- readRDS("zipcompare.rds")
+
+#bring in chart objects from step 02
+#save as RDS object
+top10chart_dem <- readRDS("demtopzip_plt_nm.rds")
+top10chart_gop <- readRDS("goptopzip_plt_nm.rds")
+
+
+```
+
+
+Summary Charts and Table
+===================================== 
+Breakdown by zip code as reported in the January monthly FEC reports filed on Feb 20.  
+This dataset includes individual contributions to the **DNC/DNCC** vs. the **RNC/NRCC**.
+
+Row {data-height=650}
+-----------------------------------------------------------------------
+
+### {data-width=800}
+
+```{r}
+
+mytable <- zipcompare %>% 
+  select(zip_code, city, state, everything(), -zipname) %>% 
+  mutate(
+    state = as.factor(state),
+    winner = as.factor(winner)
+  )
+
+datatable(mytable, 
+          rownames = FALSE, 
+          filter = "top",
+          options = list(searchHighlight = TRUE)) %>% 
+  formatCurrency(c('demtotal', 'goptotal', 'advantage'), digits = 0) %>%   
+  formatStyle('demtotal', color = 'darkblue') %>% 
+  formatStyle('goptotal', color = 'darkred') 
+
+
+
+
+
+```
+
+
+
+Row {data-height=350}
+-----------------------------------------------------------------------
+
+### Top ten zip codes for DNC/DCCC
+
+```{r}
+
+
+
+
+```
+
+
+### Top ten zip codes for RNC/NRCC
+
+```{r}
+
+
+
+
+```
+
+
+
+
+
+Upcoming Events Breakdown
+=====================================
+
+
+Row {data-height=300}
+-----------------------------------------------------------------------
+
+### Next trip happening
