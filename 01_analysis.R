@@ -1,21 +1,22 @@
 library(tidyverse)
 library(janitor)
 library(lubridate)
+library(readxl)
 options(scipen = 999)
 
 
-#republicans ####
+# REPUBLICANS ####
 #point to the files from the relevant reporting period directory you're interested in
 
-rnc <- read_csv("feb2020reports/rnc.csv")
-nrcc <- read_csv("feb2020reports/nrcc.csv")
+rnc <- read_excel("feb2020reports/rnc.xlsx")
+nrcc <- read_excel("feb2020reports/nrcc.xlsx")
 
 gop_combined <- rbind(rnc, nrcc)
 
 gop_combined %>% 
-  count(entity_type)
+  count(flag_orgind)
 
-gop_combined$date <- ymd(gop_combined$date)
+# gop_combined$date <- ymd(gop_combined$date)
 gop_combined$month <- month(gop_combined$date)
 
 gop_combined %>% 
@@ -26,13 +27,13 @@ gop_combined %>%
   count(month)
 
 gop_combined %>% 
-  filter(month != 9)
+  filter(month == 1)
 
 
 #individual contribs top zips
 topzips_gop <- gop_combined %>% 
-  filter(entity_type == "IND") %>% 
-  group_by(zip_code) %>% 
+  filter(flag_orgind == "IND") %>% 
+  group_by(zip) %>% 
   summarise(sumtotal = sum(amount)) %>% 
   arrange(desc(sumtotal))
 
@@ -40,60 +41,48 @@ head(topzips_gop, 10)
 
 
 
-#democrats ####
+# DEMOCRATS ####
 #point to the files from the relevant reporting period directory you're interested in
 
-dnc <- read_csv("feb2020reports/dnc.csv")
-dccc <- read_csv("feb2020reports/dccc.csv")
+dnc <- read_excel("feb2020reports/dnc.xlsx")
+
+dccc <- read_excel("feb2020reports/dccc.xlsx", 
+                   col_types = c("text", "text", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "text", "text", "text", "text", "text", 
+                                "text", "text", "text", "date", "numeric", 
+                                "numeric", "text", "text", "numeric", 
+                                "text", "numeric"))
 
 
-dnc$date <- ymd(dnc$date)
-dnc$month <- month(dnc$date)
+dem_combined <- rbind(dnc, dccc)
 
-dnc %>% 
-  select(date) %>% 
-  arrange(desc(date))
+dem_combined %>% 
+  count(flag_orgind)
 
-dnc %>% 
-  count(month)
+# dem_combined$date <- ymd(dem_combined$date)
+dem_combined$month <- month(dem_combined$date)
 
-
-dccc$date <- mdy(dccc$date)
-dccc$month <- month(dccc$date)
-
-dccc %>% 
+dem_combined %>% 
   select(date) %>% 
   arrange(date)
 
-dccc %>% 
+dem_combined %>% 
   count(month)
 
+dem_combined %>% 
+  filter(month == 1)
 
-
-dnc_byzip <- dnc %>% 
-  filter(entity_type == "IND") %>% 
-  group_by(zip_code) %>% 
-  summarise(sumtotal = sum(amount)) %>% 
-  arrange(desc(sumtotal))
-
-
-dccc_by_zip <- dccc %>% 
+#individual contribs top zips
+topzips_dem <- dem_combined %>% 
   filter(flag_orgind == "IND") %>% 
   group_by(zip) %>% 
   summarise(sumtotal = sum(amount)) %>% 
   arrange(desc(sumtotal))
 
-colnames(dccc_by_zip) <- c("zip_code", "sumtotal")
-
-dd <- rbind(dnc_byzip, dccc_by_zip)
-
-topzips_dem <- dd %>% 
-  group_by(zip_code) %>% 
-  summarise(sumtotal = sum(sumtotal)) %>% 
-  arrange(desc(sumtotal))
-
 head(topzips_dem, 10)
 
+#write to file
 write_csv(topzips_gop, "topzips_gop.csv")
 write_csv(topzips_dem, "topzips_dem.csv")
 
