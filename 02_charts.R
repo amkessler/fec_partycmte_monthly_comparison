@@ -49,18 +49,26 @@ htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'demtopzip_plt_nm.html')
 
 
 
-#now the republicans ##############################
+#now the republicans ################
 
-df2 <- gop10
-df2 <- arrange(df2, total)
-df2$zipname <- factor(df2$zipname, levels = df2$zipname)
+#pull out top 10 zips for the gop
+gop10 <- zipcompare %>% 
+  arrange(desc(goptotal)) %>% 
+  head(10)
 
-p <- ggplot(df2, aes(zipname, total)) + geom_col(fill = "darkred") + coord_flip() +
-     theme_minimal()
+gop10
+
+#reorder factor to allow for descending bars
+gop10 <- gop10 %>%
+  mutate(zipname = fct_reorder(zipname, goptotal)) 
+
+#chart it out
+p <- ggplot(gop10, aes(zipname, goptotal)) + geom_col(fill = "darkred") + coord_flip() +
+  theme_minimal()
 
 p
 
-
+#add titles and other extras
 p2 <- p + labs(title="Top RNC/NRCC zip codes",
                # subtitle = "A subtitle",
                caption = "Source: FEC",
