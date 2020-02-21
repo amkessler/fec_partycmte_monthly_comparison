@@ -91,3 +91,6 @@ m1
 
 #save to frameable file for CMS
 htmlwidgets::saveWidget(frameableWidget(m1),'feb_dvsr_byzip_points.html')
+
+# save as rds object
+saveRDS(m1, "savedmap_zipcompare.rds")
