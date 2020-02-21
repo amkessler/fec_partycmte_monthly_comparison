@@ -57,10 +57,16 @@ Row {data-height=650}
 
 mytable <- zipcompare %>% 
   select(zip_code, city, state, everything(), -zipname) %>% 
+  filter(!state %in% c("VI", "PR", "AE"),
+         !zip_code %in% c("0", "00000", "99999", "SW1V"),
+         !is.na(city)) %>% 
   mutate(
     state = as.factor(state),
     winner = as.factor(winner)
   )
+
+
+
 
 datatable(mytable, 
           rownames = FALSE, 
@@ -68,7 +74,8 @@ datatable(mytable,
           options = list(searchHighlight = TRUE)) %>% 
   formatCurrency(c('demtotal', 'goptotal', 'advantage'), digits = 0) %>%   
   formatStyle('demtotal', color = 'darkblue') %>% 
-  formatStyle('goptotal', color = 'darkred') 
+  formatStyle('goptotal', color = 'darkred') %>% 
+  formatStyle('zip_code', fontWeight = "bold")
 
 
 
