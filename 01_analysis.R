@@ -92,8 +92,8 @@ topzips_dem <- dd %>%
 
 head(topzips_dem, 10)
 
-write.csv(topzips_gop, "topzips_gop.csv")
-write.csv(topzips_dem, "topzips_dem.csv")
+write_csv(topzips_gop, "topzips_gop.csv")
+write_csv(topzips_dem, "topzips_dem.csv")
 
 
 ### compare D and R in each zip

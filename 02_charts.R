@@ -38,7 +38,7 @@ d
 
 d2 <- d + labs(title="Top DNC/DCCC zip codes",
                # subtitle = "A subtitle",
-               caption = "Source: FEC, CNN analysis",
+               caption = "Source: FEC",
                x ="", y = "") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
@@ -69,7 +69,7 @@ p
 
 p2 <- p + labs(title="Top RNC/NRCC zip codes",
                # subtitle = "A subtitle",
-               caption = "Source: FEC, CNN analysis",
+               caption = "Source: FEC",
                x ="", y = "") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
