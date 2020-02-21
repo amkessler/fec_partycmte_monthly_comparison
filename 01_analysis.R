@@ -26,8 +26,8 @@ gop_combined %>%
 gop_combined %>% 
   count(month)
 
-gop_combined %>% 
-  filter(month == 1)
+# gop_combined %>% 
+#   filter(month == 1)
 
 
 #individual contribs top zips
@@ -70,8 +70,8 @@ dem_combined %>%
 dem_combined %>% 
   count(month)
 
-dem_combined %>% 
-  filter(month == 1)
+# dem_combined %>% 
+#   filter(month == 1)
 
 #individual contribs top zips
 topzips_dem <- dem_combined %>% 
