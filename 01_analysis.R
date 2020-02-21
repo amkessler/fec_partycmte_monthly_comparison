@@ -106,4 +106,24 @@ zipcompare <- zipcompare %>%
     advantage = abs(demtotal-goptotal)  
   )
 
+
+### bring in the zipcode data table for adding names to zips 
+zip_codes_lookup <- read_csv("zip-codes-database-STANDARD.csv")
+
+zip_codes_lookup <- zip_codes_lookup %>% 
+  clean_names
+
+zip_codes_lookup <- zip_codes_lookup %>% 
+  mutate(
+    city = str_to_title(city),
+    name = paste0(city, ", ", state),
+    zipname = paste0(zip_code, " (", name, ")")
+  ) %>% 
+  select(zip_code, city, state, city_alias_name, zipname)
+
+
+#join to our table
+zipcompare <- left_join(zipcompare, zip_codes_lookup)
+
+#save table as rds
 saveRDS(zipcompare, "zipcompare.rds")
