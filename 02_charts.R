@@ -47,6 +47,8 @@ dd_nomenu
 # htmlwidgets::saveWidget(frameableWidget(dd), 'demtopzip_plt.html')
 htmlwidgets::saveWidget(frameableWidget(dd_nomenu), 'demtopzip_plt_nm.html')
 
+#save as RDS object
+saveRDS(dd_nomenu, "demtopzip_plt_nm.rds")
 
 
 #now the republicans ################
@@ -87,6 +89,9 @@ pp_nomenu <- pp %>% config(displayModeBar = FALSE)
 pp_nomenu
 
 #save as embeddable format
-htmlwidgets::saveWidget(frameableWidget(pp), 'goptopzip_plt.html')
+# htmlwidgets::saveWidget(frameableWidget(pp), 'goptopzip_plt.html')
 htmlwidgets::saveWidget(frameableWidget(pp_nomenu), 'goptopzip_plt_nm.html')
+
+#save as RDS object
+saveRDS(pp_nomenu, "goptopzip_plt_nm.rds")
 
